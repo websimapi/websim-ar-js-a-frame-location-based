@@ -6,78 +6,41 @@
     <!-- A-Frame library -->
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <!-- AR.js location based libraries -->
-    <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.5/three.js/build/ar-threex-location-only.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js"></script>
-    <!-- Look-at component (required for text labels in AR.js POIs) -->
-    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
-    <!-- Custom Scripts -->
-    <script src="js/scripts.js" defer></script>
+    <script type="text/javascript" src="https://raw.githack.com/AR-js-org/AR.js/3.4.5/three.js/build/ar-threex-location-only.js"></script>
+    <script type="text/javascript" src="https://raw.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js"></script>
     <style>
-      /* Ensure the scene takes full screen */
       html, body {
         margin: 0;
+        padding: 0;
         overflow: hidden;
-        height: 100%;
         width: 100%;
+        height: 100%;
         background-color: #000;
-      }
-      /* Debug Log overlay */
-      #debuglog {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        max-height: 30%;
-        max-width: 100%;
-        overflow-y: auto;
-        background: rgba(0, 0, 0, 0.7);
-        color: #0f0;
-        font-family: monospace;
-        font-size: 0.8em;
-        padding: 10px;
-        z-index: 1000;
-      }
-      /* Instructions overlay */
-      #instructions {
-        position: fixed;
-        top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(255, 255, 255, 0.8);
-        color: #000;
-        font-family: sans-serif;
-        font-size: 1em;
-        padding: 8px 12px;
-        border-radius: 4px;
-        z-index: 1001;
       }
     </style>
   </head>
   <body>
-    <!-- Instructions -->
-    <div id="instructions">
-      Tap anywhere to place a huge GPS marker at your location.
-      <br>
-      (Initialization and position updates are logged below.)
-    </div>
-    <!-- Debug log container -->
-    <div id="debuglog"></div>
-    
+    <!--
+      IMPORTANT:
+      Replace the latitude and longitude values below with a location very close to your actual position – about 0.001 degrees offset for both.
+      For example, if your position is near 37.7749, -122.4194 then you might use 37.7759 and -122.4184 to place the box a short distance away.
+      Run this on an HTTPS server, open on your mobile device, and allow GPS permissions.
+    -->
     <a-scene 
       vr-mode-ui="enabled: false" 
       arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false" 
       renderer="antialias: true; alpha: true">
       
-      <!-- The camera equipped with GPS capability using gps-new-camera -->
-      <a-camera gps-new-camera="gpsMinDistance: 5; simulateAltitude: false"></a-camera>
+      <!-- The camera with GPS capability -->
+      <a-camera gps-new-camera="gpsMinDistance: 5"></a-camera>
       
-      <!-- A sample POI box at a fixed location (replace with your lat/lon offset for testing) -->
-      <a-box color="red"
-        gps-new-entity-place="latitude: 37.7749; longitude: -122.4194"
-        depth="10" height="10" width="10"
-        animation="property: rotation; to: 0 360 0; dur: 10000; easing: linear; loop: true">
-      </a-box>
-      
-      <!-- Additional AR content can be added here -->
+      <!-- A red box placed slightly offset from your location -->
+      <a-entity 
+        material="color: red" 
+        geometry="primitive: box" 
+        gps-new-entity-place="latitude: 37.7759; longitude: -122.4184" 
+        scale="10 10 10">
+      </a-entity>
     </a-scene>
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
