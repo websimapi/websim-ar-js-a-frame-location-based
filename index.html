@@ -8,6 +8,8 @@
     <!-- AR.js location based libraries -->
     <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.5/three.js/build/ar-threex-location-only.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js"></script>
+    <!-- Look-at component (required for text labels in AR.js POIs) -->
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <!-- Custom Scripts -->
     <script src="js/scripts.js" defer></script>
     <style>
@@ -52,7 +54,11 @@
   </head>
   <body>
     <!-- Instructions -->
-    <div id="instructions">Tap anywhere to place a GPS marker at your location.</div>
+    <div id="instructions">
+      Tap anywhere to place a huge GPS marker at your location.
+      <br>
+      (Initialization and position updates are logged below.)
+    </div>
     <!-- Debug log container -->
     <div id="debuglog"></div>
     
@@ -60,10 +66,11 @@
       vr-mode-ui="enabled: false" 
       arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false" 
       renderer="antialias: true; alpha: true">
-      <!-- The camera equipped with GPS capability -->
-      <a-camera gps-new-camera="gpsMinDistance: 5; simulateAltitude: false;"></a-camera>
       
-      <!-- A sample box placed at a specific GPS location. Change the latitude and longitude as needed. -->
+      <!-- The camera equipped with GPS capability using gps-new-camera -->
+      <a-camera gps-new-camera="gpsMinDistance: 5; simulateAltitude: false"></a-camera>
+      
+      <!-- A sample POI box at a fixed location (replace with your lat/lon offset for testing) -->
       <a-box color="red"
         gps-new-entity-place="latitude: 37.7749; longitude: -122.4194"
         depth="10" height="10" width="10"
