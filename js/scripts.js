@@ -1,20 +1,41 @@
 // scripts.js
-// This script handles any additional custom behaviors or error logging.
-// For example, we can monitor if GPS is available, although AR.js handles most of it.
+// This script handles any additional custom behaviors including debug logging.
 window.addEventListener('load', () => {
+  const debugLogEl = document.getElementById('debuglog');
+  const logMessage = (msg) => {
+    console.log(msg);
+    if (debugLogEl) {
+      debugLogEl.innerHTML += `<div>${msg}</div>`;
+    }
+  };
+
+  logMessage('Initializing AR.js GPS application...');
+
+  // Check for geolocation support
   if (!navigator.geolocation) {
-    console.error('Geolocation is not supported by your browser');
+    const errorMsg = 'Error: Geolocation is not supported by your browser.';
+    logMessage(errorMsg);
     alert('Geolocation is not supported. Try a different browser.');
   } else {
-    console.log('Geolocation supported.');
-    // Optionally, you can request the location permission at this point.
+    logMessage('Geolocation supported.');
+    // Request the current position
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log('Current position:', position.coords);
+        logMessage(`Current position acquired: Latitude ${position.coords.latitude}, Longitude ${position.coords.longitude}`);
       },
       (error) => {
-        console.error('Error retrieving location:', error);
+        logMessage(`Error retrieving location: ${error.message}`);
       }
     );
+  }
+
+  // Monitor A-Frame scene loading
+  const scene = document.querySelector('a-scene');
+  if (scene) {
+    scene.addEventListener('loaded', () => {
+      logMessage('A-Frame scene is fully loaded and initialized.');
+    });
+  } else {
+    logMessage('Error: A-Frame scene not found!');
   }
 });
