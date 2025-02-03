@@ -48,9 +48,10 @@ window.addEventListener('load', () => {
           // Create a new marker entity! Using an a-box as the marker.
           const marker = document.createElement('a-box');
           marker.setAttribute('color', 'blue');
-          marker.setAttribute('depth', '5');
-          marker.setAttribute('height', '5');
-          marker.setAttribute('width', '5');
+          // Making the marker huge by setting its dimensions high.
+          marker.setAttribute('depth', '50');
+          marker.setAttribute('height', '50');
+          marker.setAttribute('width', '50');
           marker.setAttribute('gps-new-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
           marker.setAttribute('animation', 'property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true');
           
